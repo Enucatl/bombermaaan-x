@@ -83,7 +83,7 @@ enum EBomberSkills
 #define INITIAL_ITEMSKULL       1
 #define INITIAL_ITEMTHROW       2
 #define INITIAL_ITEMPUNCH       2
-#define INITIAL_ITEMREMOTE      2
+#define INITIAL_ITEMREMOTE      0
 
 // Initial flame size
 #define INITIAL_FLAMESIZE       2
