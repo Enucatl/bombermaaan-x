@@ -251,30 +251,6 @@ void COptions::SetDefaultValues(void)
 
 bool COptions::LoadConfiguration (void)
 {
-    // Try to open the old configuration file
-    FILE* pConfigFile = fopen( oldconfigFileName.c_str(), "rb" );
-
-    // If the old configuration file exists
-    if ( pConfigFile != NULL )
-    {
-        theLog.WriteLine( "Options         => Note: Reading old configuration file (config.dat) values now. Once the XML file is written, you may delete the old configuration file." );
-
-        // Read each configuration value in the file
-        fread(&m_TimeUpMinutes, sizeof(int), 1, pConfigFile);
-        fread(&m_TimeUpSeconds, sizeof(int), 1, pConfigFile);
-        fread(&m_TimeStartMinutes, sizeof(int), 1, pConfigFile);
-        fread(&m_TimeStartSeconds, sizeof(int), 1, pConfigFile);
-        fread(&m_DisplayMode, sizeof(EDisplayMode), 1, pConfigFile);
-        fread(&m_BattleCount, sizeof(int), 1, pConfigFile);
-        fread(m_BomberType, sizeof(EBomberType), MAX_PLAYERS, pConfigFile);
-        fread(m_PlayerInput, sizeof(int), MAX_PLAYERS, pConfigFile);
-        fread(m_Control, sizeof(int), MAX_PLAYER_INPUT * NUM_CONTROLS, pConfigFile);
-        fread(&m_Level, sizeof(int), 1, pConfigFile);
-
-        // The configuration file is not needed anymore
-        fclose( pConfigFile );
-    }
-
 
     TiXmlDocument configDoc( configFileName );
     
