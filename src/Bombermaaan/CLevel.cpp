@@ -290,16 +290,17 @@ bool CLevel::LoadVersion2( std::string filename )
     if (rc<0) return false;
 
     std::string s;
-    std::stringstream line;
     std::stringstream default_value;
     int value;
 
     // Read the width of the map and check whether it is allowed
     // At the moment the width is fix, but maybe the width can be changed in the future
 
+    default_value.str(std::string());
     default_value << ARENA_WIDTH;
-    line << iniFile.GetValue( "General", "Width", default_value.str().c_str() );
-    line >> value;
+    std::stringstream width_line;
+    width_line << iniFile.GetValue( "General", "Width", default_value.str().c_str() );
+    width_line >> value;
     if ( value != ARENA_WIDTH ) {
         theLog.WriteLine ("Options         => !!! Invalid arena width %d. Only %d is allowed.", value, ARENA_WIDTH );
         return false;
@@ -307,9 +308,11 @@ bool CLevel::LoadVersion2( std::string filename )
 
     // Read the height of the map and check whether it is allowed
     // At the moment the height is fix, but maybe the height can be changed in the future
+    default_value.str(std::string());
     default_value << ARENA_HEIGHT;
-    line << iniFile.GetValue( "General", "Height", default_value.str().c_str() );
-    line >> value;
+    std::stringstream height_line;
+    height_line << iniFile.GetValue( "General", "Height", default_value.str().c_str() );
+    height_line >> value;
     if ( value != ARENA_HEIGHT ) {
         theLog.WriteLine ("Options         => !!! Invalid arena height %d. Only %d is allowed.", value, ARENA_HEIGHT );
         return false;
@@ -318,6 +321,7 @@ bool CLevel::LoadVersion2( std::string filename )
     // Read the maximum number of players allowed with this level
     // At the moment this must be set to 5
     // Maybe this is changed in the future
+    std::stringstream line;
     line << iniFile.GetValue( "General", "MaxPlayers", "5" );
     line >> value;
     if ( value != 5 ) {
@@ -328,8 +332,9 @@ bool CLevel::LoadVersion2( std::string filename )
     // Read the maximum number of players allowed with this level
     // Currently this must be set to 1, though a game with 1 player is not possible
     // Maybe this is changed in the future
-    line << iniFile.GetValue( "General", "MinPlayers", "1" );
-    line >> value;
+    std::stringstream min_players_line;
+    min_players_line << iniFile.GetValue( "General", "MinPlayers", "1" );
+    min_players_line >> value;
     if ( value != 1 ) {
         theLog.WriteLine ("Options         => !!! Invalid minimum players %d. Only %d is allowed.", value, 1 );
         return false;
@@ -343,8 +348,9 @@ bool CLevel::LoadVersion2( std::string filename )
     // The priority setting is not used currently
     // For future use:
     // - The levels are first sorted by priority and then by the file name
-    line << iniFile.GetValue( "General", "Priority", "0" );
-    line >> value;
+    std::stringstream priority_line;
+    priority_line << iniFile.GetValue( "General", "Priority", "0" );
+    priority_line >> value;
 
     // Comment line following (not used currently)
     std::string comment = iniFile.GetValue( "General", "Comment", "" );
@@ -359,6 +365,7 @@ bool CLevel::LoadVersion2( std::string filename )
         oss << "Line." << y;
         std::string keyName = oss.str();
 
+        theLog.WriteLine (keyName.c_str());
         std::string arenaLine = iniFile.GetValue( "Map", keyName.c_str(), "" );
 
         if ( arenaLine.length() != ARENA_WIDTH ) {
@@ -399,78 +406,112 @@ bool CLevel::LoadVersion2( std::string filename )
     // Read the ItemsInWalls values
     //---------------------
 
+    default_value.str(std::string());
     default_value << ITEM_BOMB;
-    line << iniFile.GetValue( "Settings", "ItemsInWalls.Bombs", default_value.str().c_str() ); 
-    line >> m_NumberOfItemsInWalls[ITEM_BOMB];
+    std::stringstream bombs_line;
+    bombs_line << iniFile.GetValue( "Settings", "ItemsInWalls.Bombs", default_value.str().c_str() );
+    bombs_line >> m_NumberOfItemsInWalls[ITEM_BOMB];
 
+    default_value.str(std::string());
     default_value << ITEM_FLAME;
-    line << iniFile.GetValue( "Settings", "ItemsInWalls.Flames", default_value.str().c_str() ); 
-    line >> m_NumberOfItemsInWalls[ITEM_FLAME];
+    std::stringstream flames_line;
+    flames_line << iniFile.GetValue( "Settings", "ItemsInWalls.Flames", default_value.str().c_str() );
+    flames_line >> m_NumberOfItemsInWalls[ITEM_FLAME];
 
+    default_value.str(std::string());
     default_value << ITEM_KICK;
-    line << iniFile.GetValue( "Settings", "ItemsInWalls.Kicks", default_value.str().c_str() ); 
-    line >> m_NumberOfItemsInWalls[ITEM_KICK];
+    std::stringstream kicks_line;
+    kicks_line << iniFile.GetValue( "Settings", "ItemsInWalls.Kicks", default_value.str().c_str() );
+    kicks_line >> m_NumberOfItemsInWalls[ITEM_KICK];
 
+    default_value.str(std::string());
     default_value << ITEM_ROLLER;
-    line << iniFile.GetValue( "Settings", "ItemsInWalls.Rollers", default_value.str().c_str() ); 
-    line >> m_NumberOfItemsInWalls[ITEM_ROLLER];
+    std::stringstream rollers_line;
+    rollers_line << iniFile.GetValue( "Settings", "ItemsInWalls.Rollers", default_value.str().c_str() );
+    rollers_line >> m_NumberOfItemsInWalls[ITEM_ROLLER];
 
+    default_value.str(std::string());
     default_value << ITEM_SKULL;
-    line << iniFile.GetValue( "Settings", "ItemsInWalls.Skulls", default_value.str().c_str() ); 
-    line >> m_NumberOfItemsInWalls[ITEM_SKULL];
+    std::stringstream skulls_line;
+    skulls_line << iniFile.GetValue( "Settings", "ItemsInWalls.Skulls", default_value.str().c_str() );
+    skulls_line >> m_NumberOfItemsInWalls[ITEM_SKULL];
 
+    default_value.str(std::string());
     default_value << ITEM_THROW;
-    line << iniFile.GetValue( "Settings", "ItemsInWalls.Throws", default_value.str().c_str() ); 
-    line >> m_NumberOfItemsInWalls[ITEM_THROW];
+    std::stringstream throws_line;
+    throws_line << iniFile.GetValue( "Settings", "ItemsInWalls.Throws", default_value.str().c_str() );
+    throws_line >> m_NumberOfItemsInWalls[ITEM_THROW];
 
+    default_value.str(std::string());
     default_value << ITEM_PUNCH;
-    line << iniFile.GetValue( "Settings", "ItemsInWalls.Punches", default_value.str().c_str() ); 
-    line >> m_NumberOfItemsInWalls[ITEM_PUNCH];
+    std::stringstream punches_line;
+    punches_line << iniFile.GetValue( "Settings", "ItemsInWalls.Punches", default_value.str().c_str() );
+    punches_line >> m_NumberOfItemsInWalls[ITEM_PUNCH];
 
+    default_value.str(std::string());
     default_value << ITEM_REMOTE;
-    line << iniFile.GetValue( "Settings", "ItemsInWalls.Remotes", default_value.str().c_str() ); 
-    line >> m_NumberOfItemsInWalls[ITEM_REMOTE];
+    std::stringstream remotes_line;
+    remotes_line << iniFile.GetValue( "Settings", "ItemsInWalls.Remotes", default_value.str().c_str() );
+    remotes_line >> m_NumberOfItemsInWalls[ITEM_REMOTE];
 
     
     //---------------------
     // Read the BomberSkillsAtStart values
     //---------------------
 
+    default_value.str(std::string());
     default_value << INITIAL_FLAMESIZE;
-    line << iniFile.GetValue( "Settings", "BomberSkillsAtStart.FlameSize", default_value.str().c_str() ); 
-    line >> m_InitialBomberSkills[BOMBERSKILL_FLAME];
+    std::stringstream skill_flame_size_line;
+    skill_flame_size_line << iniFile.GetValue( "Settings", "BomberSkillsAtStart.FlameSize", default_value.str().c_str() ); 
+    skill_flame_size_line >> m_InitialBomberSkills[BOMBERSKILL_FLAME];
 
+    default_value.str(std::string());
     default_value << INITIAL_BOMBS;
-    line << iniFile.GetValue( "Settings", "BomberSkillsAtStart.MaxBombs", default_value.str().c_str() ); 
-    line >> m_InitialBomberSkills[BOMBERSKILL_BOMBS];
+    std::stringstream skill_initial_bombs_line;
+    skill_initial_bombs_line << iniFile.GetValue( "Settings", "BomberSkillsAtStart.InitialBombs", default_value.str().c_str() ); 
+    skill_initial_bombs_line >> m_InitialBomberSkills[BOMBERSKILL_BOMBS];
 
+    default_value.str(std::string());
     default_value << INITIAL_BOMBITEMS;
-    line << iniFile.GetValue( "Settings", "BomberSkillsAtStart.BombItems", default_value.str().c_str() ); 
-    line >> m_InitialBomberSkills[BOMBERSKILL_BOMBITEMS];
+    std::stringstream skill_bomb_items_line;
+    skill_bomb_items_line << iniFile.GetValue( "Settings", "BomberSkillsAtStart.BombItems", default_value.str().c_str() ); 
+    skill_bomb_items_line >> m_InitialBomberSkills[BOMBERSKILL_BOMBITEMS];
 
+    default_value.str(std::string());
     default_value << INITIAL_FLAMEITEMS;
-    line << iniFile.GetValue( "Settings", "BomberSkillsAtStart.FlameItems", default_value.str().c_str() ); 
-    line >> m_InitialBomberSkills[BOMBERSKILL_FLAMEITEMS];
+    std::stringstream skill_flame_line;
+    skill_flame_line << iniFile.GetValue( "Settings", "BomberSkillsAtStart.FlameItems", default_value.str().c_str() ); 
+    skill_flame_line >> m_InitialBomberSkills[BOMBERSKILL_FLAMEITEMS];
 
+    default_value.str(std::string());
     default_value << INITIAL_ROLLERITEMS;
-    line << iniFile.GetValue( "Settings", "BomberSkillsAtStart.RollerItems", default_value.str().c_str() ); 
-    line >> m_InitialBomberSkills[BOMBERSKILL_ROLLERITEMS];
+    std::stringstream skill_roller_line;
+    skill_roller_line << iniFile.GetValue( "Settings", "BomberSkillsAtStart.RollerItems", default_value.str().c_str() ); 
+    skill_roller_line >> m_InitialBomberSkills[BOMBERSKILL_ROLLERITEMS];
 
+    default_value.str(std::string());
     default_value << INITIAL_KICKITEMS;
-    line << iniFile.GetValue( "Settings", "BomberSkillsAtStart.KickItems", default_value.str().c_str() ); 
-    line >> m_InitialBomberSkills[BOMBERSKILL_KICKITEMS];
+    std::stringstream skill_kick_line;
+    skill_kick_line << iniFile.GetValue( "Settings", "BomberSkillsAtStart.KickItems", default_value.str().c_str() ); 
+    skill_kick_line >> m_InitialBomberSkills[BOMBERSKILL_KICKITEMS];
 
+    default_value.str(std::string());
     default_value << INITIAL_THROWITEMS;
-    line << iniFile.GetValue( "Settings", "BomberSkillsAtStart.ThrowItems", default_value.str().c_str() ); 
-    line >> m_InitialBomberSkills[BOMBERSKILL_THROWITEMS];
+    std::stringstream skill_throw_line;
+    skill_throw_line << iniFile.GetValue( "Settings", "BomberSkillsAtStart.ThrowItems", default_value.str().c_str() ); 
+    skill_throw_line >> m_InitialBomberSkills[BOMBERSKILL_THROWITEMS];
 
+    default_value.str(std::string());
     default_value << INITIAL_PUNCHITEMS;
-    line << iniFile.GetValue( "Settings", "BomberSkillsAtStart.PunchItems", default_value.str().c_str() ); 
-    line >> m_InitialBomberSkills[BOMBERSKILL_PUNCHITEMS];
+    std::stringstream skill_punch_line;
+    skill_punch_line << iniFile.GetValue( "Settings", "BomberSkillsAtStart.PunchItems", default_value.str().c_str() ); 
+    skill_punch_line >> m_InitialBomberSkills[BOMBERSKILL_PUNCHITEMS];
 
+    default_value.str(std::string());
     default_value << INITIAL_REMOTEITEMS;
-    line << iniFile.GetValue( "Settings", "BomberSkillsAtStart.RemoteItems", default_value.str().c_str() ); 
-    line >> m_InitialBomberSkills[BOMBERSKILL_REMOTEITEMS];
+    std::stringstream skill_remote_line;
+    skill_remote_line << iniFile.GetValue( "Settings", "BomberSkillsAtStart.RemoteItems", default_value.str().c_str() ); 
+    skill_remote_line >> m_InitialBomberSkills[BOMBERSKILL_REMOTEITEMS];
 
 
     //---------------------
@@ -483,7 +524,6 @@ bool CLevel::LoadVersion2( std::string filename )
     std::string contaminationsNotToUse = iniFile.GetValue( "Settings", "ContaminationsNotUsed", "" );
 
 
-    theLog.WriteLine ("Read V2!");
     // Everything went right
     return true;
 
