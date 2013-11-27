@@ -30,6 +30,7 @@
 #ifndef __CLEVEL_H__
 #define __CLEVEL_H__
 
+#include <sstream>
 #include "CItem.h"
 
 //******************************************************************************************************************************
@@ -85,11 +86,16 @@ enum EBomberSkills
 #define INITIAL_ITEMPUNCH       2
 #define INITIAL_ITEMREMOTE      0
 
-// Initial flame size
+// Initial bomber skills
 #define INITIAL_FLAMESIZE       2
-
-// Initial number of bombs the bomber can drop
 #define INITIAL_BOMBS           1
+#define INITIAL_BOMBITEMS       0
+#define INITIAL_FLAMEITEMS      0
+#define INITIAL_ROLLERITEMS     0
+#define INITIAL_KICKITEMS       0
+#define INITIAL_THROWITEMS      0
+#define INITIAL_PUNCHITEMS      0
+#define INITIAL_REMOTEITEMS     0
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
