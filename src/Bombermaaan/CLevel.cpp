@@ -39,26 +39,6 @@
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-/*** // Initial number of items when a new arena is built
-#define INITIAL_ITEMBOMB        11
-#define INITIAL_ITEMFLAME       8
-#define INITIAL_ITEMROLLER      7
-#define INITIAL_ITEMKICK        2
-#define INITIAL_ITEMSKULL       1
-#define INITIAL_ITEMTHROW       2
-#define INITIAL_ITEMPUNCH       2
-#define INITIAL_ITEMREMOTE      2
-
-// Initial flame size
-#define INITIAL_FLAMESIZE       2
-
-// Initial number of bombs the bomber can drop
-#define INITIAL_BOMBS           1
-***/
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 CLevel::CLevel ( std::string filename_full, std::string filename_short )
 {
     m_Filename_full = filename_full;
