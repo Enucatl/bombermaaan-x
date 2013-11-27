@@ -483,6 +483,7 @@ bool CLevel::LoadVersion2( std::string filename )
     std::string contaminationsNotToUse = iniFile.GetValue( "Settings", "ContaminationsNotUsed", "" );
 
 
+    theLog.WriteLine ("Read V2!");
     // Everything went right
     return true;
 
