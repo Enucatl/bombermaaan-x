@@ -1,2 +1,30 @@
-A fork of the Bombermaaan code. Originally found at http://bombermaaan.sourceforge.net/.
-Currently tweaked the code a bit to make it compileable for Mac OS X. Will add some other features as I see fit :).
+# Requirements
+
+Install the development libraries for SDL and SDL\_mixer
+
+    :::bash
+    sudo apt-get install libsdl1.2-dev libsdl-mixer1.2-dev
+
+
+# Download
+
+    :::bash
+    git clone https://github.com/Enucatl/bombermaaan-x.git
+
+# Compile
+
+`cd` to the directory where you downloaded the code.
+
+    :::bash
+    cd src
+    make -j4
+
+# Run
+
+    :::bash
+    cd Bombermaaan
+    ./run-bm
+
+# Original code
+
+Originally found at http://bombermaaan.sourceforge.net/
