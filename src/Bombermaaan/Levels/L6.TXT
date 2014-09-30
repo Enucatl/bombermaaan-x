@@ -13,3 +13,22 @@ Line.9 =	*-------------*
 Line.10 =	* *****-***** *
 Line.11 =	*4 --------- 2*
 Line.12 =	***************
+
+[Settings]
+ItemsInWalls.Bombs = 11
+ItemsInWalls.Flames = 8
+ItemsInWalls.Rollers = 7
+ItemsInWalls.Kicks = 2
+ItemsInWalls.Skulls = 1
+ItemsInWalls.Throws = 2
+ItemsInWalls.Punches = 2
+ItemsInWalls.Remotes = 0
+BomberSkillsAtStart.FlameSize = 2
+BomberSkillsAtStart.InitialBombs = 1
+BomberSkillsAtStart.BombItems = 0
+BomberSkillsAtStart.FlameItems = 0
+BomberSkillsAtStart.RollerItems = 0
+BomberSkillsAtStart.KickItems = 0
+BomberSkillsAtStart.ThrowItems = 0
+BomberSkillsAtStart.PunchItems = 0
+BomberSkillsAtStart.RemoteItems = 0
