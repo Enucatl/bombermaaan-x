@@ -241,7 +241,10 @@ inline void CBomb::SetBeingLifted (void)
 {
     debugLog.WriteDebugMsg( DEBUGSECT_BOMB, "Bomb set being lifted [x=%02d, y=%02d, owner=%d].", m_BlockX, m_BlockY, m_OwnerPlayer );
 
-    ASSERT(!m_Dead);
+    if (m_Dead) {
+        debugLog.WriteDebugMsg( DEBUGSECT_BOMB, "Bomb set being lifted while dead! [x=%02d, y=%02d, owner=%d].", m_BlockX, m_BlockY, m_OwnerPlayer );
+        return;
+    }
     ASSERT(!m_BeingHeld);
     ASSERT(!m_BeingLifted);
     ASSERT(!m_BeingPunched);
